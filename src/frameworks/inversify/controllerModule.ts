@@ -1,6 +1,6 @@
 import { ContainerModule, interfaces } from "inversify";
-import { UserController } from "./../../adapters/controllers/userController";
+import { AccountController } from "./../../adapters/controllers/accountController";
 
 export const ControllerModule = new ContainerModule((bind: interfaces.Bind) => {
-  bind(UserController).toSelf();
+  bind(AccountController).toSelf();
 });

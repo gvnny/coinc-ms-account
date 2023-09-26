@@ -2,18 +2,18 @@ import { APIGatewayProxyResult } from "aws-lambda";
 import { injectable, inject } from "inversify";
 import * as E from "fp-ts/Either";
 import { IGetUseCase } from "./../../business/contracts/usecases/iGetUseCase";
-import { IGetUserInput } from "./../../business/usecases/input/iGetUserInput";
-import { UserOutput } from "./../../business/usecases/output/userOutput";
+import { IGetAccountInput } from "./../../business/usecases/input/iGetAccountInput";
+import { AccountOutput } from "./../../business/usecases/output/accountOutput";
 import _ from "lodash";
 @injectable()
-export class UserController {
+export class AccountController {
   constructor(
     @inject(Symbol.for("IGetUseCase"))
-    private getUserUseCase: IGetUseCase<IGetUserInput, UserOutput>
+    private getAccountUseCase: IGetUseCase<IGetAccountInput, AccountOutput>
   ) {}
 
-  async getUser(input: IGetUserInput): Promise<APIGatewayProxyResult> {
-    const result = await this.getUserUseCase.exec(input);
+  async getAccount(input: IGetAccountInput): Promise<APIGatewayProxyResult> {
+    const result = await this.getAccountUseCase.exec(input);
     if (E.isLeft(result)) {
       return this.getErrorResponse(400, result.left);
     } else {
@@ -34,7 +34,7 @@ export class UserController {
   private getSuccessResponse(data: Object): APIGatewayProxyResult {
     return {
       statusCode: 200,
-      body: JSON.stringify(_.omit(data, ["_tag", "userId"])),
+      body: JSON.stringify(_.omit(data, ["_tag", "accountId"])),
     };
   }
 }

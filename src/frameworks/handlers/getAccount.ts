@@ -6,12 +6,12 @@ import {
   Context,
   APIGatewayProxyResult,
 } from "aws-lambda";
-import { UserController } from "./../../adapters/controllers/userController";
+import { AccountController } from "./../../adapters/controllers/accountController";
 import { container } from "./../inversify/container";
 import {
-  GetUserRequest,
-  GetUserRequestSchema,
-} from "./../../adapters/serializers/getUserRequest";
+  GetAccountRequest,
+  GetAccountRequestSchema,
+} from "./../../adapters/serializers/getAccountRequest";
 import "./../models/index";
 
 export const handler: Handler = async (
@@ -20,13 +20,13 @@ export const handler: Handler = async (
 ): Promise<APIGatewayProxyResult> => {
   try {
     context.callbackWaitsForEmptyEventLoop = false;
-    const userInput: GetUserRequest = GetUserRequestSchema.parse(
+    const accountInput: GetAccountRequest = GetAccountRequestSchema.parse(
       JSON.parse(JSON.stringify(event.pathParameters))
     );
 
-    const userController = container.get(UserController);
+    const accountController = container.get(AccountController);
 
-    const result = await userController.getUser(userInput);
+    const result = await accountController.getAccount(accountInput);
 
     return result;
   } catch (error) {

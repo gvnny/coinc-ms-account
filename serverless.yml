@@ -19,11 +19,11 @@ custom:
   handlers: src/frameworks/handlers
 
 functions:
-  getUser:
-    handler: ${self:custom.handlers}/getUser.handler
+  getAccount:
+    handler: ${self:custom.handlers}/getAccount.handler
     events:
       - http:
-          path: ${self:custom.baseApi}/{userId}
+          path: ${self:custom.baseApi}/{accountId}
           method: get
           cors:
             origin: '*'

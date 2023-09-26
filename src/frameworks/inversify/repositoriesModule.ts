@@ -1,10 +1,10 @@
 import { ContainerModule, interfaces } from "inversify";
 
-import { IUserRepository } from "./../../business/contracts/repositories/iUserRepository";
-import { UserRepository } from "./../repositories/userRepository";
+import { IAccountRepository } from "./../../business/contracts/repositories/iAccountRepository";
+import { AccountRepository } from "./../repositories/accountRepository";
 
 export const RepositoriesModule = new ContainerModule(
   (bind: interfaces.Bind) => {
-    bind<IUserRepository>(Symbol.for("IUserRepository")).to(UserRepository);
+    bind<IAccountRepository>(Symbol.for("IAccountRepository")).to(AccountRepository);
   }
 );

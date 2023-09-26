@@ -1,11 +1,11 @@
-export const GetUserFailed: any = {
+export const GetAccountFailed: any = {
   code: "USC-001",
-  message: "User Failed on Retrieve",
-  shortMessage: "User Failed",
+  message: "Account Failed on Retrieve",
+  shortMessage: "Account Failed",
 };
 
-export const UserNotFound: any = {
+export const AccountNotFound: any = {
   code: "USC-002",
-  message: "User Not Found",
-  shortMessage: "User Not Found",
+  message: "Account Not Found",
+  shortMessage: "Account Not Found",
 };

@@ -1,12 +1,12 @@
 import { ContainerModule, interfaces } from "inversify";
 
-import { GetUserUseCase } from "../../business/usecases/getUserUseCase";
+import { GetAccountUseCase } from "../../business/usecases/getAccountUseCase";
 import { IGetUseCase } from "../../business/contracts/usecases/iGetUseCase";
-import { IGetUserInput } from "../../business/usecases/input/iGetUserInput";
-import { UserOutput } from "../../business/usecases/output/userOutput";
+import { IGetAccountInput } from "../../business/usecases/input/iGetAccountInput";
+import { AccountOutput } from "../../business/usecases/output/accountOutput";
 
 export const UseCasesModule = new ContainerModule((bind: interfaces.Bind) => {
-  bind<IGetUseCase<IGetUserInput, UserOutput>>(Symbol.for("IGetUseCase")).to(
-    GetUserUseCase
+  bind<IGetUseCase<IGetAccountInput, AccountOutput>>(Symbol.for("IGetUseCase")).to(
+    GetAccountUseCase
   );
 });
