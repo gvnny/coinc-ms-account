@@ -9,10 +9,10 @@ export class AccountRepository implements IAccountRepository {
 
   async show(accountId: string): Promise<IAccountEntity> {
     try {
-      const account = await this.accountModel.findOne({ accountId }).exec();
+      const account = await this.accountModel.findOne({ _id: accountId }).exec();
       return account as IAccountEntity;
     } catch (error) {
-      console.log("ERRO: ", JSON.stringify(error.message));
+      console.log("ERROR: ", JSON.stringify(error.message));
       throw new Error(
         `Internal Server Error: ${JSON.stringify(error.message)}`
       );
