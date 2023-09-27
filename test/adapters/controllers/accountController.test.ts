@@ -7,6 +7,7 @@ import { IGetAccountInput } from "./../../../src/business/usecases/input/iGetAcc
 import { AccountOutput } from "./../../../src/business/usecases/output/accountOutput";
 import { AccountNotFound, GetAccountFailed } from "./../../../src/business/errors";
 import { IAccountEntity } from "./../../../src/entities/iAccountEntity";
+import { CardTypes } from "../../../src/frameworks/models/accountModel";
 import { mock, when, instance } from "ts-mockito";
 
 import * as E from "fp-ts/Either";
@@ -22,11 +23,22 @@ describe(AccountController.name, () => {
   beforeEach(() => {
     getAccountUseCaseMock = mock<IGetUseCase<IGetAccountInput, AccountOutput>>();
     accountController = new AccountController(instance(getAccountUseCaseMock));
-    accountInput = { accountId: "1" };
+    accountInput = { accountId: "65148205830de63d3cd60bc4" };
     accountEntity = {
-      accountId: accountInput.accountId,
-      name: "Teste",
-      email: "teste@teste.com",
+      _id: accountInput.accountId,
+      name: "Test Account",
+      color: "#D3D4D5",
+      balance: 100,
+      cards: [
+        {
+          id: "77788899911de63d3cd60bc4",
+          type: CardTypes.CREDIT,
+          name: "Test Card",
+          number: "1234567890123456",
+          limit: 100,
+          expires: new Date(),
+        },
+      ],
     };
     accountOutput = E.right(accountEntity);
   });
@@ -53,7 +65,7 @@ describe(AccountController.name, () => {
       expect(result.body).toEqual(JSON.stringify({ error: AccountNotFound }));
     });
 
-    it("should return GetAccountFailed when error is thown", async () => {
+    it("should return GetAccountFailed when error is thrown", async () => {
       when(getAccountUseCaseMock.exec(accountInput)).thenResolve(
         E.left(GetAccountFailed)
       );

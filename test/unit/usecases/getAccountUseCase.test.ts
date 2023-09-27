@@ -7,6 +7,7 @@ import { IGetAccountInput } from "./../../../src/business/usecases/input/iGetAcc
 import { AccountNotFound, GetAccountFailed } from "./../../../src/business/errors";
 import { IAccountEntity } from "./../../../src/entities/iAccountEntity";
 import { IError } from "./../../../src/business/contracts/iError";
+import { CardTypes } from "../../../src/frameworks/models/accountModel";
 
 import * as E from "fp-ts/Either";
 
@@ -29,13 +30,24 @@ describe(GetAccountUseCase.name, () => {
   describe("When success", () => {
     it("should return an account when found", async () => {
       accountInput = {
-        accountId: "123",
+        accountId: "65148205830de63d3cd60bc4",
       };
 
       accountOutput = E.right<IError, IAccountEntity>({
-        accountId: "123",
-        name: "test",
-        email: "email@email.com",
+        _id: "65148205830de63d3cd60bc4",
+        name: "Test Account",
+        color: "#D1D2D3",
+        balance: 100,
+        cards: [
+          {
+            id: "77788899911de63d3cd60cc9",
+            type: CardTypes.CREDIT,
+            name: "Test Card",
+            number: "1234567890123456",
+            limit: 100,
+            expires: new Date(),
+          },
+        ],
       });
 
       accountRepositoryMockGetFunction.mockResolvedValueOnce(accountOutput);
@@ -57,7 +69,7 @@ describe(GetAccountUseCase.name, () => {
 
       result = await getAccountUseCase.exec(accountInput);
 
-      expect(accountRepositoryMockGetFunction).toHaveBeenCalledWith("123");
+      expect(accountRepositoryMockGetFunction).toHaveBeenCalledWith(accountInput.accountId);
       expect(result).toEqual(E.left(AccountNotFound));
     });
 
