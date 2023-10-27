@@ -4,8 +4,9 @@ export type BankAccountDocument = BankAccount & Document;
 
 @Schema()
 export class BankAccount {
-    @Prop()
-    _id: string;
+    
+    @Prop({ required: true })
+    userId: string;
 
     @Prop({ required: true })
     name: string;
@@ -13,8 +14,9 @@ export class BankAccount {
     @Prop()
     color: string;
 
-    @Prop({ required: true })
+    @Prop({ default: 0 })
     balance: number;
+
 }
 
 export const BankAccountSchema = SchemaFactory.createForClass(BankAccount);

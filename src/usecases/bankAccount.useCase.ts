@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BankAccount, IDataServices, CreateBankAccountRequest, CreateBankAccountResponse, UpdateBankAccountRequest, UpdateBankAccountResponse } from '../core';
+import { BankAccount, IDataServices, CreateBankAccountRequest, CreateBankAccountResponse, UpdateBankAccountRequest, UpdateBankAccountResponse, FindBankAccountByIdResponse } from '../core';
 import { BankAccountFactoryService } from './bankAccountFactory.service';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class BankAccountUseCase {
         return this.dataServices.bankAccount.getAll();
     }
 
-    getBankAccountById(id: any): Promise<BankAccount> {
+    getBankAccountById(id: string): Promise<BankAccount> {
         return this.dataServices.bankAccount.get(id);
     }
 
@@ -23,12 +23,9 @@ export class BankAccountUseCase {
         return this.dataServices.bankAccount.create(bankAccount);
     }
 
-    updateBankAccount(
-        _id: string,
-        updateBankAccountRequest: UpdateBankAccountRequest,
-    ): Promise<BankAccount> {
+    updateBankAccount(id: string, updateBankAccountRequest: UpdateBankAccountRequest): Promise<BankAccount> {
         const bankAccount = this.bankAccountFactoryService.updateBankAccount(updateBankAccountRequest);
-        return this.dataServices.bankAccount.update(_id, bankAccount);
+        return this.dataServices.bankAccount.update(id, bankAccount);
     }
 
     deleteBankAccount(id: string): Promise<BankAccount> {

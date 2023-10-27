@@ -7,6 +7,7 @@ export class BankAccountFactoryService {
     createBankAccount(createBankAccountRequest: CreateBankAccountRequest) {
         const bankAccount = new BankAccount();
 
+        bankAccount.userId = createBankAccountRequest.userId;
         bankAccount.name = createBankAccountRequest.name;
         bankAccount.color = createBankAccountRequest.color;
         bankAccount.balance = createBankAccountRequest.balance;

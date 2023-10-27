@@ -1,6 +1,5 @@
-import { BankAccount } from '../entities/';
-
 export class CreateBankAccountRequest {
+    userId: string;
     name: string;
     color?: string;
     balance: number;
@@ -8,5 +7,5 @@ export class CreateBankAccountRequest {
 
 export class CreateBankAccountResponse {
     success: boolean;
-    bankaccount: BankAccount;
+    message: string;
 }
