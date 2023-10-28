@@ -1,4 +1,4 @@
-import { BankAccount } from "../entities/";
+import { BankAccount } from "../../core/entities";
 
 export type FindBankAccountByIdResponse = {
     success: boolean;

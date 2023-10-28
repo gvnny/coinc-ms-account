@@ -1,26 +1,32 @@
 import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
-import { CreateBankAccountRequest, CreateBankAccountResponse, FindBankAccountByIdResponse, UpdateBankAccountRequest } from '../core';
-import { BankAccountUseCase } from '../usecases';
+import { CreateBankAccountRequest, CreateBankAccountResponse, FindBankAccountByIdResponse, UpdateBankAccountRequest } from '../usecases';
+import { CreateBankAccountUseCase, UpdateBankAccountUseCase, DeleteBankAccountUseCase, FindAllBankAccountUseCase, FindBankAccountByIdUseCase } from '../usecases';
 
 @Controller('api/coinc-ms-bankaccounts')
 export class BankAccountController {
-    constructor(private bankAccountUseCases: BankAccountUseCase) {}
+    constructor(
+        private createBankAccountUseCase: CreateBankAccountUseCase,
+        private updateBankAccountUseCase: UpdateBankAccountUseCase,
+        private deleteBankAccountUseCase: DeleteBankAccountUseCase,
+        private findAllBankAccountUseCase: FindAllBankAccountUseCase,
+        private findBankAccountByIdUseCase: FindBankAccountByIdUseCase
+        ) {}
 
     @Get()
-    async getAllBankAccounts() {
-        return this.bankAccountUseCases.getAllBankAccounts();
+    async findAllBankAccounts() {
+        return this.findAllBankAccountUseCase.execute();
     }
 
     @Get(':id')
-    async getBankAccountById(@Param('id') id: string): Promise<FindBankAccountByIdResponse> {
+    async findBankAccountById(@Param('id') id: string): Promise<FindBankAccountByIdResponse> {
         try{
-            const bankAccount = await this.bankAccountUseCases.getBankAccountById(id);
+            const bankAccount = await this.findBankAccountByIdUseCase.execute(id);
     
             if (bankAccount) {
                 const response: FindBankAccountByIdResponse = {
                     success: true,
                     message: 'Bank Account found',
-                    bankAccount: bankAccount,
+                    bankAccount: bankAccount.bankAccount,
                 };
     
                 return response;
@@ -45,7 +51,7 @@ export class BankAccountController {
         @Body() createBankAccountRequest: CreateBankAccountRequest): Promise<CreateBankAccountResponse> {
         
             try {
-                const bankAccount = await this.bankAccountUseCases.createBankAccount(createBankAccountRequest);
+                const bankAccount = await this.createBankAccountUseCase.execute(createBankAccountRequest);
                 
                 if(bankAccount) {
                     const response: CreateBankAccountResponse = {
@@ -75,11 +81,11 @@ export class BankAccountController {
         @Param('id') id: string,
         @Body() bankaccount: UpdateBankAccountRequest,
     ) {
-        return this.bankAccountUseCases.updateBankAccount(id, bankaccount);
+        return this.updateBankAccountUseCase.execute(id, bankaccount);
     }
 
     @Delete(':id')
     async deleteBankAccount(@Param('id') id: string) {
-        return this.bankAccountUseCases.deleteBankAccount(id);
+        return this.deleteBankAccountUseCase.execute(id);
     }
 }
