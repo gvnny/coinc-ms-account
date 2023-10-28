@@ -1,8 +1,8 @@
-# ms-accounts
+# coinc-ms-bankaccounts
 
 ## Utilização
 
-1. Copie o arquivo .env.sample e renomeie para .env
+1. Copie o arquivo .env.example e renomeie para .env
 2. Insira o usuário, senha e nome da database
 
 

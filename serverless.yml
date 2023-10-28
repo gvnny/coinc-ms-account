@@ -1,5 +1,5 @@
-app: ms-accounts
-service: ms-accounts
+app: coinc-ms-accounts
+service: coinc-ms-accounts
 useDotenv: true
 frameworkVersion: '3'
 
@@ -14,7 +14,7 @@ custom:
   esbuild:
     bundle: true
     minify: false
-  serviceName: ms-accounts
+  serviceName: coinc-ms-accounts
   baseApi: ${self:custom.serviceName}
   handlers: src/frameworks/handlers
 
