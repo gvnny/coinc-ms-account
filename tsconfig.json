@@ -1,20 +1,21 @@
 {
   "compilerOptions": {
-    "preserveConstEnums": true,
-    "strictNullChecks": true,
-    "sourceMap": true,
-    "allowJs": true,
-    "target": "ES6",
-    "outDir": ".esbuild",
-    "moduleResolution": "node",
-    "module": "ES6",
-    "lib": ["ES2015"],
-    "types": ["reflect-metadata", "node", "jest"],
-    "rootDir": "./src",
-    "experimentalDecorators": true,
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
-    "esModuleInterop": true
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  }
 }
